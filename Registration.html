@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FundFlow — Create Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FDFBF7;
+            --primary: #1A1A1A;
+            --accent: #38E584;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-blend-mode: overlay;
+        }
+
+        .serif-font { font-family: 'Instrument Serif', serif; }
+
+        .neo-shadow {
+            box-shadow: 8px 8px 0px 0px var(--primary);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .neo-shadow:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 10px 10px 0px 0px var(--primary);
+        }
+
+        .neo-input {
+            border: 2px solid var(--primary);
+            transition: all 0.2s ease;
+            box-shadow: 3px 3px 0px 0px var(--primary);
+        }
+
+        .neo-input:focus {
+            transform: translate(-1px, -1px);
+            box-shadow: 5px 5px 0px 0px var(--accent);
+            outline: none;
+        }
+
+        .neo-checkbox {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--primary);
+            box-shadow: 2px 2px 0px 0px var(--primary);
+            cursor: pointer;
+            position: relative;
+            background: white;
+            transition: all 0.1s;
+        }
+
+        .neo-checkbox:checked {
+            background-color: var(--accent);
+            transform: translate(1px, 1px);
+            box-shadow: 0px 0px 0px 0px var(--primary);
+        }
+
+        .neo-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 900;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-reveal { animation: fadeInUp 0.4s ease-out forwards; }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#38E584] flex items-center justify-center min-h-screen p-4">
+
+    <main class="w-full max-w-[400px] animate-reveal">
+        
+         <!-- Compact Logo Section -->
+        <div class="flex flex-col items-center mb-8 group">
+            <div class="w-12 h-12 bg-[#1A1A1A] rounded-xl flex items-center justify-center mb-3 transform group-hover:rotate-6 transition-transform duration-300 shadow-lg">
+                <svg viewBox="0 0 100 100" class="w-7 h-7 text-[#38E584]" fill="none" stroke="currentColor" stroke-width="10">
+                    <path d="M20 50 L40 70 L80 30" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M20 30 L40 50 L80 10" class="opacity-40" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            <h1 class="serif-font text-4xl font-medium tracking-tight">FundFlow</h1>
+        </div>
+            
+        </div>
+
+        <!-- Registration Card -->
+        <div class="bg-white border-2 border-[#1A1A1A] rounded-[1.5rem] p-6 md:p-8 neo-shadow">
+            <header class="mb-5">
+                <h2 class="text-2xl serif-font mb-1">Create your account</h2>
+                <p class="text-[#1A1A1A]/50 text-[12px] font-medium">Join 10k+ users managing flows today.</p>
+            </header>
+
+            <form class="space-y-4" onsubmit="return false">
+                <!-- Name Field -->
+                <div class="space-y-1.5">
+                    <label class="text-[9px] font-black uppercase tracking-[0.15em] text-[#020202]/60 ml-1">Full Name</label>
+                    <div class="relative group">
+                        <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#020202]/40 group-focus-within:text-[#020202] transition-colors"></i>
+                        <input type="text" placeholder="John Doe" 
+                               class="neo-input w-full pl-10 pr-4 py-2 text-[13px] font-semibold placeholder:text-[#020202]/20 rounded-lg">
+                    </div>
+                </div>
+
+                <!-- Email Field -->
+                <div class="space-y-1.5">
+                    <label class="text-[9px] font-black uppercase tracking-[0.15em] text-[#1A1A1A]/60 ml-1">Work Email</label>
+                    <div class="relative group">
+                        <i data-lucide="mail" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1A1A1A]/40 group-focus-within:text-[#1A1A1A] transition-colors"></i>
+                        <input type="email" placeholder="john@company.com" 
+                               class="neo-input w-full pl-10 pr-4 py-2 text-[13px] font-semibold placeholder:text-[#1A1A1A]/20 rounded-lg">
+                    </div>
+                </div>
+
+                <!-- Password Field Group -->
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="text-[9px] font-black uppercase tracking-[0.15em] text-[#1A1A1A]/60 ml-1">Password</label>
+                        <div class="relative group">
+                            <i data-lucide="lock" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#1A1A1A]/40 group-focus-within:text-[#1A1A1A] transition-colors"></i>
+                            <input type="password" placeholder="••••••••" 
+                                   class="neo-input w-full pl-10 pr-4 py-2 text-[13px] font-semibold placeholder:text-[#1A1A1A]/20 rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="flex items-start gap-3 py-1">
+                    <input type="checkbox" id="terms" class="neo-checkbox mt-0.5">
+                    <label for="terms" class="text-[11px] leading-tight text-[#1A1A1A]/60 font-medium">
+                        I agree to the <a href="#" class="text-[#1A1A1A] font-bold underline decoration-[#38E584] decoration-2">Terms of Service</a> and Privacy Policy.
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full px-6 py-3 bg-[#1A1A1A] text-white rounded-lg text-[12px] font-bold uppercase tracking-widest hover:bg-[#38E584] hover:text-[#1A1A1A] transition-all duration-200 flex items-center justify-center gap-2 border-2 border-[#1A1A1A] neo-shadow mt-2 active:translate-y-1 active:shadow-none">
+                    Create My Account
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                </button>
+
+                <!-- Divider -->
+                <div class="relative py-1 flex items-center">
+                    <div class="flex-grow border-t border-[#1A1A1A]/10"></div>
+                    <span class="flex-shrink mx-3 text-[9px] font-bold text-[#1A1A1A]/30 uppercase tracking-widest">Or Register with</span>
+                    <div class="flex-grow border-t border-[#1A1A1A]/10"></div>
+                </div>
+
+                <!-- Social Grid -->
+                <div class="grid grid-cols-2 gap-3">
+                    <button type="button" class="py-2 border-2 border-[#1A1A1A] rounded-lg flex items-center justify-center gap-2 hover:bg-[#38E584] hover:text-[#1A1A1A]  transition-all duration-200 transition-colors font-bold text-[11px] uppercase tracking-wider">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-3.5 h-3.5" alt="Google">
+                        Google
+                    </button>
+                    <button type="button" class="py-2 border-2 border-[#1A1A1A] rounded-lg flex items-center justify-center gap-2 hover:bg-[#F3F0EB] transition-colors font-bold text-[11px] uppercase tracking-wider">
+                        <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                        GitHub
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-6 text-center">
+            <p class="text-[12px] font-medium text-[#1A1A1A]/40">
+                Already have an account? 
+                <a href="Login.html" class="text-[#1A1A1A] font-bold border-b-2 border-[#38E584] hover:bg-[#38E584] transition-all pb-0.5 ml-1">Sign in here</a>
+            </p>
+        </footer>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

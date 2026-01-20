@@ -1,0 +1,560 @@
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FundFlow - The Borderless Digital Wallet</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body {
+font-family: 'Roboto', sans-serif;
+background-color: #FDFBF7; /* Oyster-like warm cream */
+color: #1A1A1A;
+}
+h1, h2, h3, h4, h5, h6, .serif-font {
+font-family: 'Instrument Serif', serif;
+}
+.scribble-anim {
+stroke-dasharray: 1000;
+stroke-dashoffset: 1000;
+animation: dash 2s ease-out forwards;
+}
+@keyframes dash {
+to { stroke-dashoffset: 0; }
+}
+.flow-card-shadow {
+box-shadow: 8px 8px 0px 0px rgba(26, 26, 26, 1);
+}
+.flow-card-shadow-hover:hover {
+transform: translate(-4px, -4px);
+box-shadow: 12px 12px 0px 0px #38E584;
+}
+.neon-green-shadow {
+box-shadow: 4px 4px 0px 0px #38E584;
+}
+/* Custom Toggle Switch */
+.toggle-checkbox:checked {
+right: 0;
+border-color: #1A1A1A;
+}
+.toggle-checkbox:checked + .toggle-label {
+background-color: #1A1A1A;
+}
+.glass-card {
+background: rgba(255, 255, 255, 0.7);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.5);
+}
+</style><link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style><link id="all-fonts-link-font-newsreader" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..800&amp;display=swap"><style id="all-fonts-style-font-newsreader">.font-newsreader { font-family: 'Newsreader', serif !important; }</style><link id="all-fonts-link-font-google-sans-flex" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-google-sans-flex">.font-google-sans-flex { font-family: 'Google Sans Flex', sans-serif !important; }</style><link id="all-fonts-link-font-oswald" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-oswald">.font-oswald { font-family: 'Oswald', sans-serif !important; }</style><link id="all-fonts-link-font-dm-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-dm-sans">.font-dm-sans { font-family: 'DM Sans', sans-serif !important; }</style></head>
+<body class="antialiased selection:bg-[#38E584] selection:text-[#1A1A1A]">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-[#FDFBF7]/90 backdrop-blur-md py-5 border-b border-[#1A1A1A]/5">
+        <nav class="relative bg-white border-b border-gray-100">
+  <div class="md:px-12 flex max-w-7xl mx-auto px-6 py-4 items-center justify-between">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-3 group cursor-pointer z-50">
+      <div class="relative w-8 h-8 text-[#1A1A1A] hover:text-[#38E584] transition-colors duration-300">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 50 L40 70 L80 30"></path>
+          <path d="M20 30 L40 50 L80 10" class="opacity-50"></path>
+        </svg>
+      </div>
+      <span class="serif-font text-3xl tracking-tight text-[#1A1A1A]">FundFlow</span>
+    </div>
+
+    <!-- Desktop Navigation (Hidden on Mobile) -->
+
+
+    <div class="flex gap-4 gap-x-4 gap-y-4 items-center">
+  <!-- Desktop Login -->
+  <a href="Login.html" class="hidden md:block text-sm font-medium text-[#1A1A1A] hover:underline decoration-[#38E584] decoration-2 underline-offset-4">Log
+    in</a>
+
+  <button class="hover:bg-[#38E584] hover:text-[#1A1A1A] transition-all duration-300 text-sm font-medium text-white bg-[#1A1A1A] border-[#1A1A1A] border rounded-full pt-2.5 pr-5 pb-2.5 pl-5">
+                Open Account
+            </button>
+
+  </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 text-2xl font-medium transition-all duration-500 translate-x-full">
+   
+    
+    <a href="#" class="text-lg">Log in</a>
+  </div>
+</nav>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-32 pb-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-20 items-center relative z-10">
+            
+            <!-- Left: Content -->
+            <div class="space-y-10 relative">
+                <!-- Decorative scribble -->
+                <svg class="absolute -top-12 -left-8 w-24 h-24 text-[#38E584] opacity-40 rotate-12" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4">
+                    <path d="M20,100 C50,50 150,50 180,100" class="scribble-anim"></path>
+                </svg>
+
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#1A1A1A]/10 bg-white shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-[#38E584] animate-pulse"></span>
+                    <span class="text-xs font-medium text-[#1A1A1A]/60 uppercase tracking-wide">Instant Transfers Live</span>
+                </div>
+
+                <h1 class="text-6xl md:text-8xl leading-[0.9] tracking-tight text-[#1A1A1A] serif-font">
+                    Money moving <br>
+                    as <span class="relative inline-block">
+                        <span class="relative z-10 italic">fast</span>
+                        <svg class="absolute bottom-1 left-0 w-full h-3 text-[#38E584] -z-0 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0,5 Q50,10 100,5" fill="none" stroke="currentColor" stroke-width="8"></path>
+                        </svg>
+                    </span> as you do.
+                </h1>
+                
+                <p class="text-lg md:text-xl text-[#1A1A1A]/70 font-light max-w-lg leading-relaxed">
+                    Send, spend, and manage 50+ currencies instantly. Zero hidden fees, bank-level security, and a card that works everywhere.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <button class="px-8 py-4 bg-[#1A1A1A] text-white rounded-full text-lg font-medium hover:bg-[#38E584] hover:text-[#1A1A1A] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group border border-[#1A1A1A] shadow-lg">
+                        Get started for free
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-5 h-5 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                    <button class="px-8 py-4 bg-transparent border border-[#1A1A1A] text-[#1A1A1A] rounded-full text-lg font-medium hover:bg-[#F3F0EB] transition-colors flex items-center justify-center">
+                        View fees
+                    </button>
+                </div>
+                
+                <div class="flex items-center gap-4 text-xs font-medium text-[#1A1A1A]/50">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 rounded-full border-2 border-[#FDFBF7] bg-gray-200"></div>
+                        <div class="w-8 h-8 rounded-full border-2 border-[#FDFBF7] bg-gray-300"></div>
+                        <div class="w-8 h-8 rounded-full border-2 border-[#FDFBF7] bg-gray-400"></div>
+                    </div>
+                    <span>Trusted by 2M+ users worldwide</span>
+                </div>
+            </div>
+
+            <!-- Right: Visual -->
+            <div class="relative">
+                <!-- Abstract blobs -->
+                <div class="absolute -top-10 -right-10 w-64 h-64 bg-[#38E584]/20 rounded-full blur-3xl mix-blend-multiply"></div>
+                <div class="absolute bottom-10 -left-10 w-64 h-64 bg-blue-200/40 rounded-full blur-3xl mix-blend-multiply"></div>
+
+                <!-- Main Wallet UI Visual -->
+                <div class="relative bg-white border border-[#1A1A1A] rounded-[2.5rem] p-8 flow-card-shadow rotate-1 hover:rotate-0 transition-transform duration-500">
+                    
+                    <!-- Balance Header -->
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <p class="text-xs text-[#1A1A1A]/50 font-medium uppercase tracking-wider">Total Balance</p>
+                            <h3 class="text-4xl font-bold text-[#1A1A1A] tracking-tight">$12,450<span class="text-[#1A1A1A]/30">.00</span></h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-[#F3F0EB] flex items-center justify-center border border-[#1A1A1A]/5">
+                             <img src="https://flagcdn.com/w40/us.png" class="w-6 h-6 rounded-full object-cover" alt="USD">
+                        </div>
+                    </div>
+
+                    <!-- Virtual Card -->
+                    <div class="relative bg-[#1A1A1A] rounded-2xl p-6 text-white mb-6 overflow-hidden group cursor-pointer shadow-lg">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-[#38E584] rounded-full blur-2xl opacity-20 -mr-10 -mt-10 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="flex justify-between items-start mb-8 relative z-10">
+                            <span class="font-medium tracking-widest text-sm opacity-80">FundFlow</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi w-5 h-5 opacity-80 rotate-90"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+                        </div>
+                        <div class="space-y-1 relative z-10">
+                            <div class="text-xl font-mono tracking-widest opacity-90">•••• •••• •••• 4289</div>
+                            <div class="flex justify-between items-end mt-4">
+                                <div class="text-xs opacity-60">
+                                    EXP <span class="text-white">12/28</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="w-8 h-5 bg-white/20 rounded-sm"></div>
+                                    <div class="w-8 h-5 bg-[#38E584] rounded-sm mix-blend-overlay"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions List -->
+                    <div class="space-y-3">
+                        <p class="text-xs font-medium text-[#1A1A1A]/40 uppercase tracking-wide mb-2">Recent Activity</p>
+                        
+                        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-[#F9F9F9] transition-colors border border-transparent hover:border-[#1A1A1A]/5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shopping-bag" class="lucide lucide-shopping-bag w-5 h-5"><path d="M16 10a4 4 0 0 1-8 0"></path><path d="M3.103 6.034h17.794"></path><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-[#1A1A1A]">Shopify Store</div>
+                                    <div class="text-[10px] text-[#1A1A1A]/50">Today, 10:23 AM</div>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-[#1A1A1A]">- $129.00</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-[#F9F9F9] transition-colors border border-transparent hover:border-[#1A1A1A]/5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-[#DCFCE7] text-[#16A34A] flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-down-left" class="lucide lucide-arrow-down-left w-5 h-5"><path d="M17 7 7 17"></path><path d="M17 17H7V7"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-[#1A1A1A]">Received from Alex</div>
+                                    <div class="text-[10px] text-[#1A1A1A]/50">Yesterday, 4:15 PM</div>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-[#38E584]">+ $450.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Floating Badge -->
+                    <div class="absolute -right-6 top-20 bg-white px-4 py-3 rounded-xl border border-[#1A1A1A] shadow-xl flex items-center gap-3 transform rotate-3">
+                        <div class="w-8 h-8 rounded-full bg-[#38E584] flex items-center justify-center text-[#1A1A1A]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check w-5 h-5 stroke-[3]"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <div class="text-xs font-medium">
+                            <div class="text-[#1A1A1A]">Payment Sent</div>
+                            <div class="text-[#1A1A1A]/50">0.2s speed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom wave separator -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-full h-12 text-[#1C1C1C]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="transparent"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Marquee Section (Partners) -->
+    <div class="border-y border-[#1A1A1A]/10 bg-white py-12">
+        <div class="text-center max-w-7xl mx-auto px-6 space-x-6 space-y-10 gap-x-3 gap-y-3">
+            <p class="text-sm font-medium text-[#1A1A1A]/50 mb-8 uppercase tracking-widest">Connect with the world's best</p>
+            <div class="flex flex-wrap justify-center gap-12 md:gap-20 opacity-80 items-baseline grayscale hover:grayscale-0 transition-all duration-500">
+                <span class="text-2xl font-bold tracking-tighter text-[#1A1A1A] italic">VISA</span>
+                <span class="text-xl font-bold tracking-tight text-[#1A1A1A] border-2 border-[#1A1A1A] px-2 rounded">stripe</span>
+                <span class="text-2xl font-serif italic text-[#1A1A1A]">Mastercard</span>
+                <span class="text-2xl font-medium text-[#1A1A1A] tracking-tighter">Shopify</span>
+                <span class="text-2xl font-bold text-[#1A1A1A]">Plaid</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Features Section (Grid) -->
+    <section class="-mt-12 overflow-hidden text-[#FDFBF7] bg-[#1C1C1C] rounded-t-[3rem] mx-4 my-4 pt-32 pb-32 relative top-10">
+        <!-- Abstract Decoration -->
+        <svg class="absolute top-20 right-0 w-96 h-96 text-[#38E584] opacity-5" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+            <circle cx="50" cy="50" r="40" stroke-width="0.5" class=""></circle>
+            <circle cx="50" cy="50" r="30" stroke-width="0.5" stroke-dasharray="4 4"></circle>
+            <circle cx="50" cy="50" r="20" stroke-width="0.5"></circle>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="text-5xl md:text-7xl mb-6 serif-font tracking-tight">Everything you need  to <span class="text-[#38E584] italic">thrive</span>.</h2>
+                <p class="text-xl text-[#FDFBF7]/70 font-light">One platform for spending, saving, and sending. We've built the financial infrastructure for the next generation.</p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="bg-[#2A2A2A] p-8 rounded-[2rem] border border-white/5 hover:bg-[#38E584] group transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute right-4 top-4 text-[#38E584] group-hover:text-[#1A1A1A] transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="globe" class="lucide lucide-globe w-8 h-8"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                    </div>
+                    <div class="mt-8 relative z-10">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-[#1A1A1A]">Instant Global Transfers</h3>
+                        <p class="text-white/60 group-hover:text-[#1A1A1A]/80 leading-relaxed text-sm">
+                            Send money to 180+ countries instantly. Low fees, real-time exchange rates, and zero waiting.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-[#2A2A2A] p-8 rounded-[2rem] border border-white/5 hover:bg-[#38E584] group transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute right-4 top-4 text-[#38E584] group-hover:text-[#1A1A1A] transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="wallet" class="lucide lucide-wallet w-8 h-8"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>
+                    </div>
+                    <div class="mt-8 relative z-10">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-[#1A1A1A]">Multi-Currency Wallet</h3>
+                        <p class="text-white/60 group-hover:text-[#1A1A1A]/80 leading-relaxed text-sm">
+                            Hold, convert, and manage 50+ currencies in a single secure account. Beat the bank rates.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-[#2A2A2A] p-8 rounded-[2rem] border border-white/5 hover:bg-[#38E584] group transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute right-4 top-4 text-[#38E584] group-hover:text-[#1A1A1A] transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="store" class="lucide lucide-store w-8 h-8"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"></path><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"></path><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"></path></svg>
+                    </div>
+                    <div class="mt-8 relative z-10">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-[#1A1A1A]">Merchant Gateway</h3>
+                        <p class="text-white/60 group-hover:text-[#1A1A1A]/80 leading-relaxed text-sm">
+                            Accept payments on your website or app. Easy API integration for businesses of all sizes.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-[#2A2A2A] p-8 rounded-[2rem] border border-white/5 hover:bg-[#38E584] group transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute right-4 top-4 text-[#38E584] group-hover:text-[#1A1A1A] transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" class="lucide lucide-shield-check w-8 h-8"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                    </div>
+                    <div class="mt-8 relative z-10">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-[#1A1A1A]">Bank-Level Security</h3>
+                        <p class="text-white/60 group-hover:text-[#1A1A1A]/80 leading-relaxed text-sm">
+                            PCI-DSS compliant, 2FA, and biometric authentication keeps your funds safer than cash.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-[#2A2A2A] p-8 rounded-[2rem] border border-white/5 hover:bg-[#38E584] group transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute right-4 top-4 text-[#38E584] group-hover:text-[#1A1A1A] transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="credit-card" class="lucide lucide-credit-card w-8 h-8"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+                    </div>
+                    <div class="mt-8 relative z-10">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-[#1A1A1A]">Virtual &amp; Physical Cards</h3>
+                        <p class="text-white/60 group-hover:text-[#1A1A1A]/80 leading-relaxed text-sm">
+                            Create disposable virtual cards for safe online shopping or order a metal card for travel.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="bg-[#2A2A2A] p-8 rounded-[2rem] border border-white/5 hover:bg-[#38E584] group transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute right-4 top-4 text-[#38E584] group-hover:text-[#1A1A1A] transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bitcoin" class="lucide lucide-bitcoin w-8 h-8"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727"></path></svg>
+                    </div>
+                    <div class="mt-8 relative z-10">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-[#1A1A1A]">Crypto Buy/Sell</h3>
+                        <p class="text-white/60 group-hover:text-[#1A1A1A]/80 leading-relaxed text-sm">
+                            Seamlessly swap between Fiat and Crypto. Store Bitcoin, Ethereum, and more directly.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-32 bg-[#FDFBF7] relative">
+         <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-20 text-center">
+                <span class="text-[#38E584] font-mono text-sm uppercase tracking-widest mb-4 block text-[#1A1A1A]">Get Started in Minutes</span>
+                <h2 class="text-5xl md:text-6xl serif-font text-[#1A1A1A] tracking-tight">How FundFlow works</h2>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 border-t-2 border-dashed border-[#1A1A1A]/20 -z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="relative z-10 group text-center">
+                    <div class="w-24 h-24 mx-auto bg-white rounded-full border-2 border-[#1A1A1A]/10 flex items-center justify-center mb-6 group-hover:border-[#38E584] group-hover:scale-110 transition-all duration-300 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-plus" class="lucide lucide-user-plus w-8 h-8 text-[#1A1A1A]"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" x2="19" y1="8" y2="14"></line><line x1="22" x2="16" y1="11" y2="11"></line></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1A1A1A] mb-2">1. Sign Up</h3>
+                    <p class="text-sm text-[#1A1A1A]/60">Create your free account in less than 2 minutes using your email.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative z-10 group text-center">
+                    <div class="w-24 h-24 mx-auto bg-white rounded-full border-2 border-[#1A1A1A]/10 flex items-center justify-center mb-6 group-hover:border-[#38E584] group-hover:scale-110 transition-all duration-300 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="landmark" class="lucide lucide-landmark w-8 h-8 text-[#1A1A1A]"><path d="M10 18v-7"></path><path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"></path><path d="M14 18v-7"></path><path d="M18 18v-7"></path><path d="M3 22h18"></path><path d="M6 18v-7"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1A1A1A] mb-2">2. Add Funds</h3>
+                    <p class="text-sm text-[#1A1A1A]/60">Link your bank account, card, or deposit crypto securely.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative z-10 group text-center">
+                    <div class="w-24 h-24 mx-auto bg-white rounded-full border-2 border-[#1A1A1A]/10 flex items-center justify-center mb-6 group-hover:border-[#38E584] group-hover:scale-110 transition-all duration-300 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="send" class="lucide lucide-send w-8 h-8 text-[#1A1A1A]"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1A1A1A] mb-2">3. Send &amp; Pay</h3>
+                    <p class="text-sm text-[#1A1A1A]/60">Transfer to friends globally or pay merchants instantly.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative z-10 group text-center">
+                    <div class="w-24 h-24 mx-auto bg-white rounded-full border-2 border-[#1A1A1A]/10 flex items-center justify-center mb-6 group-hover:border-[#38E584] group-hover:scale-110 transition-all duration-300 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bar-chart-2" class="lucide lucide-bar-chart-2 w-8 h-8 text-[#1A1A1A]"><path d="M5 21v-6"></path><path d="M12 21V3"></path><path d="M19 21V9"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1A1A1A] mb-2">4. Track</h3>
+                    <p class="text-sm text-[#1A1A1A]/60">Monitor your spending and analytics in real-time.</p>
+                </div>
+            </div>
+         </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-32 bg-[#1A1A1A] relative text-white rounded-[3rem] -mb-12 z-20">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-6xl serif-font tracking-tight mb-4">Loved by <span class="text-[#38E584] italic">millions</span>.</h2>
+                <p class="text-white/60">Don't just take our word for it.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-[#2A2A2A] p-8 rounded-[2rem] border border-white/10 hover:border-[#38E584]/50 transition-all duration-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-lg">
+                            JD
+                        </div>
+                        <div class="">
+                            <div class="font-bold">James Doe</div>
+                            <div class="text-xs text-[#38E584]">Freelance Designer</div>
+                        </div>
+                    </div>
+                    <p class="text-lg text-white/80 font-medium leading-relaxed">
+                        "FundFlow changed how I get paid. Clients from the US and Europe send money, and it hits my account instantly. No more waiting days for wire transfers."
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white text-[#1A1A1A] p-8 rounded-[2rem] shadow-2xl transform md:-translate-y-4 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="quote" class="lucide lucide-quote w-8 h-8 text-[#38E584] fill-[#38E584]/20"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path></svg>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div class="w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white font-bold text-lg">
+                            SAR
+                        </div>
+                        <div class="">
+                            <div class="font-bold">Sarah Jenkins</div>
+                            <div class="text-xs text-[#1A1A1A]/60 font-bold">E-commerce Owner</div>
+                        </div>
+                    </div>
+                    <p class="text-lg font-medium leading-relaxed relative z-10">
+                        "The merchant API is incredible. We integrated it into our shop in an afternoon. Lower fees than Stripe and faster payouts. It's a no-brainer."
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-[#2A2A2A] p-8 rounded-[2rem] border border-white/10 hover:border-[#38E584]/50 transition-all duration-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg">
+                            MK
+                        </div>
+                        <div class="">
+                            <div class="font-bold">Marcus Kim</div>
+                            <div class="text-xs text-[#38E584]">Digital Nomad</div>
+                        </div>
+                    </div>
+                    <p class="text-lg text-white/80 font-medium leading-relaxed">
+                        "I travel to a new country every month. The multi-currency card just works. I don't worry about exchange rates anymore, FundFlow handles it perfectly."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Call to Action -->
+    <section class="py-40 bg-[#FDFBF7] flex flex-col items-center justify-center text-center relative overflow-hidden">
+        <!-- Abstract Shapes -->
+        <div class="absolute top-20 left-10 w-32 h-32 border-8 border-[#38E584]/20 rounded-full animate-pulse"></div>
+        <div class="absolute bottom-10 right-10 w-40 h-40 bg-[#1A1A1A] rounded-full opacity-5"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 z-10 pt-10">
+            <h2 class="text-6xl md:text-8xl text-[#1A1A1A] mb-8 serif-font tracking-tight leading-[0.9]">
+                Ready to 
+                <span class="text-[#38E584] italic decoration-wavy">flow?</span>
+            </h2>
+            <p class="text-xl text-[#1A1A1A]/60 max-w-lg mx-auto mb-10">Join the financial revolution. Open your free account today.</p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <button class="px-10 py-5 bg-[#1A1A1A] text-white rounded-full text-xl font-medium hover:bg-[#38E584] hover:text-[#1A1A1A] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 neon-green-shadow border border-[#1A1A1A]">
+                    Create Free Account
+                </button>
+                <a href="#" class="group flex items-center gap-2 text-[#1A1A1A] font-medium text-lg hover:underline decoration-2 underline-offset-4">
+                    Download App <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="smartphone" class="lucide lucide-smartphone w-5 h-5 group-hover:-translate-y-1 transition-transform"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1C1C1C] text-white pt-24 pb-12 rounded-t-[3rem] relative overflow-hidden -mt-12">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid md:grid-cols-4 gap-12 mb-24 text-sm">
+                <div class="space-y-4">
+                    <h5 class="font-bold text-[#38E584] uppercase tracking-wider mb-4">Features</h5>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Global Transfers</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Virtual Cards</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Crypto Wallet</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Business API</a>
+                </div>
+                <div class="space-y-4">
+                    <h5 class="font-bold text-[#38E584] uppercase tracking-wider mb-4">Support</h5>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Help Center</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Fees &amp; Limits</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Security</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Contact Us</a>
+                </div>
+                <div class="space-y-4">
+                    <h5 class="font-bold text-[#38E584] uppercase tracking-wider mb-4">Company</h5>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">About FundFlow</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Careers</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Press</a>
+                    <a href="#" class="block text-[#FDFBF7]/60 hover:text-white">Legal</a>
+                </div>
+                <div class="space-y-4">
+                    <h5 class="font-bold text-[#38E584] uppercase tracking-wider mb-4">Get the App</h5>
+                    <div class="flex gap-4">
+                        <button class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="apple" class="lucide lucide-apple w-5 h-5"><path d="M12 6.528V3a1 1 0 0 1 1-1h0"></path><path d="M18.237 21A15 15 0 0 0 22 11a6 6 0 0 0-10-4.472A6 6 0 0 0 2 11a15.1 15.1 0 0 0 3.763 10 3 3 0 0 0 3.648.648 5.5 5.5 0 0 1 5.178 0A3 3 0 0 0 18.237 21"></path></svg>
+                            <span class="text-xs">App Store</span>
+                        </button>
+                        <button class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="play-circle" class="lucide lucide-play-circle w-5 h-5"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                            <span class="text-xs">Google Play</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row border-white/10 border-t pt-12 pr-11 gap-x-8 gap-y-8 items-end justify-between">
+                <!-- Big Logo -->
+                <div class="flex-1 flex items-center gap-4">
+                     <div class="w-16 h-16 text-white">
+                         <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" class="">
+                             <path d="M20 50 L40 70 L80 30"></path>
+                             <path d="M20 30 L40 50 L80 10" class="opacity-50"></path>
+                         </svg>
+                     </div>
+                     <span class="text-[clamp(3rem,8vw,6rem)] leading-none serif-font font-medium tracking-tighter block text-white">FundFlow</span>
+                </div>
+                
+                <div class="flex items-center gap-2 mb-4 md:mb-8">
+                    <div class="w-2 h-2 rounded-full bg-[#38E584] animate-pulse"></div>
+                    <span class="text-xs text-[#FDFBF7]/40">Banking Services Active • 99.99% Uptime</span>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between text-xs text-[#FDFBF7]/30 mt-8">
+                <p class="">© 2024 FundFlow Financial Inc. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Use</a>
+                    <a href="#" class="hover:text-white">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body></html>
