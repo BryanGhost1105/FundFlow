@@ -1,0 +1,885 @@
+﻿<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FundFlow Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="antialiased overflow-hidden">
+    <div class="noise-overlay"></div>
+
+    <div class="flex h-screen w-full relative">
+
+        <!-- Mobile Header (Visible only on small screens) -->
+        <div
+            class="lg:hidden fixed top-0 w-full z-50 bg-[#0a0a0a] text-white p-4 flex justify-between items-center border-b border-white/10">
+            <div class="flex items-center gap-2">
+                <svg viewBox="0 0 100 100" class="w-6 h-6 text-[var(--accent-pop)]" fill="none" stroke="currentColor"
+                    stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 50 L40 70 L80 30"></path>
+                </svg>
+                <span class="serif-font text-xl">FundFlow</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="text-white hover:text-[var(--accent-pop)]">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar"
+            class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-[#0a0a0a] text-[#FDFBF7] transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col justify-between h-full border-r border-[#0a0a0a]">
+            <div>
+                <!-- Logo Area -->
+                <div class="p-8 flex items-center gap-3">
+                    <div class="relative w-8 h-8 text-[var(--accent-pop)]">
+                        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="10"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 50 L40 70 L80 30"></path>
+                            <path d="M20 30 L40 50 L80 10" class="opacity-50"></path>
+                        </svg>
+                    </div>
+                    <span class="serif-font text-2xl tracking-tight">FundFlow</span>
+                </div>
+
+                <!-- Nav Links -->
+                <nav class="space-y-1 px-4 mt-4">
+                    <button onclick="switchTab('dashboard')"
+                        class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all active"
+                        id="nav-dashboard">
+                        <i data-lucide="layout-grid" class="w-5 h-5"></i>
+                        Dashboard
+                    </button>
+                    <button onclick="switchTab('wallet')"
+                        class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all"
+                        id="nav-wallet">
+                        <i data-lucide="wallet" class="w-5 h-5"></i>
+                        Wallet &amp; Balances
+                    </button>
+                    <button onclick="switchTab('transfers')"
+                        class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all"
+                        id="nav-transfers">
+                        <i data-lucide="arrow-left-right" class="w-5 h-5"></i>
+                        Send &amp; Transfer
+                    </button>
+                    <button onclick="switchTab('history')"
+                        class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all"
+                        id="nav-history">
+                        <i data-lucide="file-clock" class="w-5 h-5"></i>
+                        Transactions
+                    </button>
+                    <button onclick="switchTab('cards')"
+                        class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all"
+                        id="nav-cards">
+                        <i data-lucide="credit-card" class="w-5 h-5"></i>
+                        Cards
+                    </button>
+                </nav>
+            </div>
+
+            <div class="p-4 border-t border-white/10">
+                <button onclick="switchTab('settings')"
+                    class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all mb-2"
+                    id="nav-settings">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    Settings
+                </button>
+                <div class="flex items-center gap-3 px-4 py-3">
+                    <div
+                        class="w-8 h-8 rounded-full bg-[var(--accent-pop)] text-[#0a0a0a] flex items-center justify-center font-bold text-xs">
+                        JD
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-white">John Doe</p>
+                        <p class="text-xs text-white/50">Pro Plan</p>
+                    </div>
+                    <i data-lucide="log-out" class="w-4 h-4 text-white/50 hover:text-[var(--accent-pop)] cursor-pointer"></i>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 h-full overflow-y-auto pt-16 lg:pt-0 bg-[var(--bg-color)] relative" id="main-content">
+
+            <!-- OVERVIEW / DASHBOARD -->
+            <div id="view-dashboard" class="p-6 md:p-12 max-w-7xl mx-auto space-y-8 fade-in">
+
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                    <div>
+                        <p class="text-xs font-medium text-[#0a0a0a]/50 uppercase tracking-widest mb-1">Overview</p>
+                        <h1 class="text-4xl md:text-5xl serif-font text-[#0a0a0a]">Good Morning, John</h1>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="switchTab('transfers')"
+                            class="px-5 py-2.5 bg-[#0a0a0a] text-white text-sm font-medium rounded-full hover:bg-[var(--accent-pop)] hover:text-[#0a0a0a] transition-colors border border-[#0a0a0a] flex items-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> Send Money
+                        </button>
+                        <button onclick="switchTab('wallet')"
+                            class="px-5 py-2.5 bg-white text-[#0a0a0a] text-sm font-medium rounded-full border border-[#0a0a0a]/10 hover:border-[#0a0a0a] transition-colors flex items-center gap-2">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Add Funds
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Top Stats Grid -->
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Main Balance -->
+                    <div
+                        class="lg:col-span-2 bg-[#0a0a0a] text-white rounded-[2rem] p-8 relative overflow-hidden shadow-2xl">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-[var(--accent-pop)] rounded-full blur-[80px] opacity-10">
+                        </div>
+                        <div class="relative z-10 flex justify-between items-start">
+                            <div>
+                                <p class="text-white/60 text-sm font-medium mb-2">Total Balance</p>
+                                <h2 class="text-5xl font-mono tracking-tighter mb-4">$24,562<span
+                                        class="text-[var(--accent-pop)]">.40</span></h2>
+                                <div
+                                    class="flex items-center gap-2 text-sm text-[var(--accent-pop)] bg-white/5 inline-flex px-3 py-1 rounded-full border border-white/10">
+                                    <i data-lucide="trending-up" class="w-4 h-4"></i>
+                                    <span>+12.5% this month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center border border-white/10">
+                                <span class="font-serif italic text-xl">US</span>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex gap-2">
+                            <div class="h-1 flex-1 bg-[var(--accent-pop)] rounded-full"></div>
+                            <div class="h-1 flex-1 bg-white/20 rounded-full"></div>
+                            <div class="h-1 flex-1 bg-white/20 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Summary -->
+                    <div class="bg-white border border-[#0a0a0a]/10 rounded-[2rem] p-8 flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-[#0a0a0a]/50 text-sm font-medium">Monthly Spending</p>
+                                <h3 class="text-3xl font-bold mt-2">$3,204.00</h3>
+                            </div>
+                            <div class="p-2 bg-[var(--bg-color)] rounded-lg border border-[#0a0a0a]/5">
+                                <i data-lucide="bar-chart-2" class="w-5 h-5 text-[#0a0a0a]"></i>
+                            </div>
+                        </div>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-[#0a0a0a]/60">Limit</span>
+                                <span class="font-medium">$5,000.00</span>
+                            </div>
+                            <div class="w-full bg-[#F3F0EB] h-2 rounded-full overflow-hidden">
+                                <div class="bg-[#0a0a0a] h-full w-[64%]"></div>
+                            </div>
+                            <p class="text-xs text-[#0a0a0a]/40">You've spent 64% of your limit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <button onclick="switchTab('transfers')"
+                        class="bg-white p-6 rounded-2xl border border-[#0a0a0a]/10 hover:border-[var(--accent-pop)] hover:shadow-lg transition-all group text-left">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#F3F0EB] flex items-center justify-center mb-4 group-hover:bg-[var(--accent-pop)] transition-colors">
+                            <i data-lucide="send" class="w-5 h-5 text-[#0a0a0a]"></i>
+                        </div>
+                        <span class="font-bold text-[#0a0a0a] block">Send</span>
+                    </button>
+                    <button
+                        class="bg-white p-6 rounded-2xl border border-[#0a0a0a]/10 hover:border-[var(--accent-pop)] hover:shadow-lg transition-all group text-left">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#F3F0EB] flex items-center justify-center mb-4 group-hover:bg-[var(--accent-pop)] transition-colors">
+                            <i data-lucide="arrow-down-left" class="w-5 h-5 text-[#0a0a0a]"></i>
+                        </div>
+                        <span class="font-bold text-[#0a0a0a] block">Request</span>
+                    </button>
+                    <button
+                        class="bg-white p-6 rounded-2xl border border-[#0a0a0a]/10 hover:border-[var(--accent-pop)] hover:shadow-lg transition-all group text-left">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#F3F0EB] flex items-center justify-center mb-4 group-hover:bg-[var(--accent-pop)] transition-colors">
+                            <i data-lucide="plus" class="w-5 h-5 text-[#0a0a0a]"></i>
+                        </div>
+                        <span class="font-bold text-[#0a0a0a] block">Top Up</span>
+                    </button>
+                    <button
+                        class="bg-white p-6 rounded-2xl border border-[#0a0a0a]/10 hover:border-[var(--accent-pop)] hover:shadow-lg transition-all group text-left">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#F3F0EB] flex items-center justify-center mb-4 group-hover:bg-[var(--accent-pop)] transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-[#0a0a0a]"></i>
+                        </div>
+                        <span class="font-bold text-[#0a0a0a] block">Withdraw</span>
+                    </button>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div>
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="serif-font text-2xl text-[#0a0a0a]">Recent Activity</h3>
+                        <button onclick="switchTab('history')"
+                            class="text-sm font-medium text-[#0a0a0a]/60 hover:text-[#0a0a0a] flex items-center gap-1">
+                            View All <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <div class="bg-white border border-[#0a0a0a]/10 rounded-2xl overflow-hidden">
+                        <!-- Item 1 -->
+                        <div
+                            class="p-4 flex items-center justify-between hover:bg-[#F9F9F9] transition-colors border-b border-[#0a0a0a]/5">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center">
+                                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-[#0a0a0a]">Shopify Store</div>
+                                    <div class="text-xs text-[#0a0a0a]/50">Purchase â€¢ Today, 10:23 AM</div>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-[#0a0a0a]">- $129.00</span>
+                        </div>
+                        <!-- Item 2 -->
+                        <div
+                            class="p-4 flex items-center justify-between hover:bg-[#F9F9F9] transition-colors border-b border-[#0a0a0a]/5">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-[#DCFCE7] text-[#16A34A] flex items-center justify-center">
+                                    <i data-lucide="user" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-[#0a0a0a]">Alex Morgan</div>
+                                    <div class="text-xs text-[#0a0a0a]/50">Received â€¢ Yesterday</div>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-[#16A34A]">+ $450.00</span>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="p-4 flex items-center justify-between hover:bg-[#F9F9F9] transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-[#F3F4F6] text-[#4B5563] flex items-center justify-center">
+                                    <i data-lucide="film" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-[#0a0a0a]">Netflix Subscription</div>
+                                    <div class="text-xs text-[#0a0a0a]/50">Recurring â€¢ Oct 24</div>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-[#0a0a0a]">- $14.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WALLET PAGE -->
+            <div id="view-wallet" class="p-6 md:p-12 max-w-7xl mx-auto space-y-8 hidden fade-in">
+                <div class="flex flex-col md:flex-row justify-between items-end gap-4">
+                    <div>
+                        <h1 class="text-4xl md:text-5xl serif-font text-[#0a0a0a] mb-2">My Wallet</h1>
+                        <p class="text-[#0a0a0a]/60 max-w-lg">Manage your currencies and assets. Exchange rates are
+                            updated in real-time.</p>
+                    </div>
+                </div>
+
+                <!-- Currency Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- USD -->
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-[#0a0a0a]/10 hover:border-[#0a0a0a] transition-all group">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center gap-3">
+                                <img src="https://flagcdn.com/w40/us.png"
+                                    class="w-8 h-8 rounded-full object-cover border border-[#0a0a0a]/10" alt="USD">
+                                <span class="font-bold text-lg">USD</span>
+                            </div>
+                            <span
+                                class="text-xs font-medium px-2 py-1 bg-[#F3F0EB] rounded text-[#0a0a0a]/60">Primary</span>
+                        </div>
+                        <div class="mb-4">
+                            <span class="text-3xl font-mono font-medium">$12,450.00</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 py-2 text-xs font-bold border border-[#0a0a0a]/10 rounded hover:bg-[#0a0a0a] hover:text-white transition-colors">Add
+                                Money</button>
+                            <button
+                                class="flex-1 py-2 text-xs font-bold border border-[#0a0a0a]/10 rounded hover:bg-[#0a0a0a] hover:text-white transition-colors">Exchange</button>
+                        </div>
+                    </div>
+
+                    <!-- EUR -->
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-[#0a0a0a]/10 hover:border-[#0a0a0a] transition-all group">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center gap-3">
+                                <img src="https://flagcdn.com/w40/eu.png"
+                                    class="w-8 h-8 rounded-full object-cover border border-[#0a0a0a]/10" alt="EUR">
+                                <span class="font-bold text-lg">EUR</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <span class="text-3xl font-mono font-medium">â‚¬4,230.50</span>
+                            <div class="text-xs text-[#0a0a0a]/40 mt-1">â‰ˆ $4,480.12 USD</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 py-2 text-xs font-bold border border-[#0a0a0a]/10 rounded hover:bg-[#0a0a0a] hover:text-white transition-colors">Add
+                                Money</button>
+                            <button
+                                class="flex-1 py-2 text-xs font-bold border border-[#0a0a0a]/10 rounded hover:bg-[#0a0a0a] hover:text-white transition-colors">Exchange</button>
+                        </div>
+                    </div>
+
+                    <!-- Add New -->
+                    <button
+                        class="bg-[var(--bg-color)] p-6 rounded-2xl border-2 border-dashed border-[#0a0a0a]/10 hover:border-[var(--accent-pop)] hover:bg-[var(--accent-pop)]/5 transition-all flex flex-col items-center justify-center gap-4 min-h-[200px]">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm">
+                            <i data-lucide="plus" class="w-6 h-6 text-[#0a0a0a]"></i>
+                        </div>
+                        <span class="font-bold text-[#0a0a0a]">Open New Balance</span>
+                    </button>
+                </div>
+
+                <!-- Converter Tool -->
+                <div class="bg-[#0a0a0a] text-white rounded-[2rem] p-8 md:p-12 relative overflow-hidden">
+                    <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="serif-font text-3xl mb-4">Currency Converter</h3>
+                            <p class="text-white/60 mb-8">Zero hidden fees. Real mid-market exchange rates.</p>
+
+                            <div class="space-y-4">
+                                <div
+                                    class="bg-white/5 p-4 rounded-xl border border-white/10 flex justify-between items-center">
+                                    <div class="flex flex-col">
+                                        <label class="text-xs text-white/40 uppercase tracking-widest mb-1">You
+                                            send</label>
+                                        <input type="number" value="1000"
+                                            class="bg-transparent text-2xl font-mono outline-none w-32">
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-2 bg-black/20 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-black/40">
+                                        <img src="https://flagcdn.com/w40/us.png" class="w-5 h-5 rounded-full" alt="">
+                                        <span class="font-bold">USD</span>
+                                        <i data-lucide="chevron-down" class="w-4 h-4 text-white/50"></i>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-center -my-6 relative z-20">
+                                    <div
+                                        class="w-10 h-10 bg-[var(--accent-pop)] rounded-full flex items-center justify-center text-[#0a0a0a] border-4 border-[#0a0a0a]">
+                                        <i data-lucide="arrow-down-up" class="w-5 h-5"></i>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="bg-white/5 p-4 rounded-xl border border-white/10 flex justify-between items-center">
+                                    <div class="flex flex-col">
+                                        <label class="text-xs text-white/40 uppercase tracking-widest mb-1">You
+                                            get</label>
+                                        <input type="number" value="945.20"
+                                            class="bg-transparent text-2xl font-mono outline-none w-32" readonly="">
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-2 bg-black/20 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-black/40">
+                                        <img src="https://flagcdn.com/w40/eu.png" class="w-5 h-5 rounded-full" alt="">
+                                        <span class="font-bold">EUR</span>
+                                        <i data-lucide="chevron-down" class="w-4 h-4 text-white/50"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                class="w-full mt-6 py-4 bg-[var(--accent-pop)] text-[#0a0a0a] rounded-xl font-bold hover:bg-white transition-colors">
+                                Convert Now
+                            </button>
+                        </div>
+
+                        <div class="hidden md:block">
+                            <!-- Simple Chart Visualization -->
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+                                <div class="flex justify-between items-center mb-6">
+                                    <span class="font-bold">USD to EUR</span>
+                                    <span class="text-[var(--accent-pop)] text-sm">+2.4%</span>
+                                </div>
+                                <div class="h-40 flex items-end justify-between gap-2 opacity-50">
+                                    <div class="w-full bg-[var(--accent-pop)] h-[40%] rounded-t-sm"></div>
+                                    <div class="w-full bg-[var(--accent-pop)] h-[60%] rounded-t-sm"></div>
+                                    <div class="w-full bg-[var(--accent-pop)] h-[55%] rounded-t-sm"></div>
+                                    <div class="w-full bg-[var(--accent-pop)] h-[70%] rounded-t-sm"></div>
+                                    <div class="w-full bg-[var(--accent-pop)] h-[85%] rounded-t-sm"></div>
+                                    <div class="w-full bg-[var(--accent-pop)] h-[65%] rounded-t-sm"></div>
+                                    <div class="w-full bg-[var(--accent-pop)] h-[90%] rounded-t-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEND & TRANSFER -->
+            <div id="view-transfers" class="p-6 md:p-12 max-w-4xl mx-auto space-y-8 hidden fade-in">
+                <div class="text-center mb-10">
+                    <h1 class="text-4xl md:text-5xl serif-font text-[#0a0a0a]">Move Money</h1>
+                </div>
+
+                <div class="bg-white rounded-[2rem] shadow-xl border border-[#0a0a0a]/5 overflow-hidden">
+                    <div class="flex border-b border-[#0a0a0a]/10">
+                        <button
+                            class="flex-1 py-4 text-center font-bold text-[#0a0a0a] border-b-2 border-[#0a0a0a] bg-[var(--bg-color)]">Send</button>
+                        <button
+                            class="flex-1 py-4 text-center font-medium text-[#0a0a0a]/50 hover:bg-[#F9F9F9]">Request</button>
+                        <button
+                            class="flex-1 py-4 text-center font-medium text-[#0a0a0a]/50 hover:bg-[#F9F9F9]">Wires</button>
+                    </div>
+
+                    <div class="p-8 md:p-12 space-y-8">
+                        <!-- Recipient -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-[#0a0a0a]/50">To</label>
+                            <div class="relative">
+                                <i data-lucide="search"
+                                    class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0a0a0a]/30"></i>
+                                <input type="text" placeholder="Name, @username, email, or wallet address"
+                                    class="w-full pl-12 pr-4 py-4 bg-[#F3F0EB] rounded-xl text-[#0a0a0a] font-medium placeholder:text-[#0a0a0a]/30 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/10 transition-all">
+                            </div>
+
+                            <!-- Recent Contacts -->
+                            <div class="flex gap-4 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold border border-transparent group-hover:border-[var(--accent-pop)] transition-all">
+                                        AM</div>
+                                    <span class="text-xs font-medium">Alex</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold border border-transparent group-hover:border-[var(--accent-pop)] transition-all">
+                                        SJ</div>
+                                    <span class="text-xs font-medium">Sarah</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 border border-transparent group-hover:border-[var(--accent-pop)] transition-all">
+                                        <i data-lucide="plus" class="w-5 h-5"></i></div>
+                                    <span class="text-xs font-medium">New</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Amount -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-[#0a0a0a]/50">Amount</label>
+                            <div class="flex items-center gap-4">
+                                <div class="relative flex-1">
+                                    <span
+                                        class="absolute left-0 top-1/2 -translate-y-1/2 text-4xl font-serif text-[#0a0a0a]">$</span>
+                                    <input type="number" placeholder="0.00"
+                                        class="w-full pl-8 py-2 text-6xl font-serif text-[#0a0a0a] placeholder:text-[#0a0a0a]/10 focus:outline-none bg-transparent">
+                                </div>
+                                <div class="flex items-center gap-2 bg-[#F3F0EB] px-4 py-2 rounded-full cursor-pointer">
+                                    <img src="https://flagcdn.com/w40/us.png" class="w-6 h-6 rounded-full" alt="">
+                                    <span class="font-bold">USD</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 text-[#0a0a0a]/50"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Note -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-[#0a0a0a]/50">Note
+                                (Optional)</label>
+                            <input type="text" placeholder="What is this for?"
+                                class="w-full border-b border-[#0a0a0a]/10 py-2 focus:outline-none focus:border-[#0a0a0a] transition-colors bg-transparent">
+                        </div>
+
+                        <button
+                            class="w-full py-5 bg-[#0a0a0a] text-white rounded-xl font-bold text-lg hover:bg-[var(--accent-pop)] hover:text-[#0a0a0a] hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                            Send Money <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORY / TRANSACTIONS -->
+            <div id="view-history" class="p-6 md:p-12 max-w-7xl mx-auto space-y-8 hidden fade-in">
+                <div class="flex flex-col md:flex-row justify-between items-end gap-4">
+                    <h1 class="text-4xl md:text-5xl serif-font text-[#0a0a0a]">Transactions</h1>
+                    <div class="flex gap-2">
+                        <button
+                            class="px-4 py-2 bg-white border border-[#0a0a0a]/10 rounded-lg text-sm font-medium hover:bg-[#F9F9F9] flex items-center gap-2">
+                            <i data-lucide="calendar" class="w-4 h-4"></i> Date Range
+                        </button>
+                        <button
+                            class="px-4 py-2 bg-white border border-[#0a0a0a]/10 rounded-lg text-sm font-medium hover:bg-[#F9F9F9] flex items-center gap-2">
+                            <i data-lucide="download" class="w-4 h-4"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-[#0a0a0a]/10 rounded-2xl overflow-hidden shadow-sm">
+                    <!-- Filters -->
+                    <div class="p-4 border-b border-[#0a0a0a]/10 flex gap-4 overflow-x-auto">
+                        <div class="relative flex-1 min-w-[200px]">
+                            <i data-lucide="search"
+                                class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0a0a0a]/40"></i>
+                            <input type="text" placeholder="Search transactions..."
+                                class="w-full pl-9 pr-4 py-2 bg-[#F3F0EB] rounded-lg text-sm focus:outline-none">
+                        </div>
+                        <select
+                            class="px-4 py-2 bg-white border border-[#0a0a0a]/10 rounded-lg text-sm focus:outline-none cursor-pointer">
+                            <option>All Types</option>
+                            <option>Incoming</option>
+                            <option>Outgoing</option>
+                        </select>
+                        <select
+                            class="px-4 py-2 bg-white border border-[#0a0a0a]/10 rounded-lg text-sm focus:outline-none cursor-pointer">
+                            <option>All Status</option>
+                            <option>Completed</option>
+                            <option>Pending</option>
+                        </select>
+                    </div>
+
+                    <!-- Table Header -->
+                    <div
+                        class="grid grid-cols-12 px-6 py-3 bg-[var(--bg-color)] text-xs font-bold text-[#0a0a0a]/50 uppercase tracking-wider border-b border-[#0a0a0a]/5">
+                        <div class="col-span-5 md:col-span-4">Description</div>
+                        <div class="col-span-3 md:col-span-3">Date</div>
+                        <div class="col-span-2 hidden md:block">Status</div>
+                        <div class="col-span-4 md:col-span-3 text-right">Amount</div>
+                    </div>
+
+                    <!-- Table Rows -->
+                    <div class="divide-y divide-[#1A1A1A]/5">
+                        <!-- Row 1 -->
+                        <div class="grid grid-cols-12 px-6 py-4 items-center hover:bg-[#F9F9F9] transition-colors">
+                            <div class="col-span-5 md:col-span-4 flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0">
+                                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-sm truncate">Apple Store</span>
+                            </div>
+                            <div class="col-span-3 md:col-span-3 text-sm text-[#0a0a0a]/70">Oct 24, 2023</div>
+                            <div class="col-span-2 hidden md:block">
+                                <span
+                                    class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wide border border-green-200">Completed</span>
+                            </div>
+                            <div class="col-span-4 md:col-span-3 text-right font-mono font-medium">- $999.00</div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="grid grid-cols-12 px-6 py-4 items-center hover:bg-[#F9F9F9] transition-colors">
+                            <div class="col-span-5 md:col-span-4 flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0">
+                                    <i data-lucide="arrow-down-left" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-sm truncate">Transfer from Alex</span>
+                            </div>
+                            <div class="col-span-3 md:col-span-3 text-sm text-[#0a0a0a]/70">Oct 23, 2023</div>
+                            <div class="col-span-2 hidden md:block">
+                                <span
+                                    class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wide border border-green-200">Completed</span>
+                            </div>
+                            <div class="col-span-4 md:col-span-3 text-right font-mono font-medium text-[#16A34A]">+
+                                $450.00</div>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="grid grid-cols-12 px-6 py-4 items-center hover:bg-[#F9F9F9] transition-colors">
+                            <div class="col-span-5 md:col-span-4 flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+                                    <i data-lucide="clock" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-sm truncate">Bank Withdrawal</span>
+                            </div>
+                            <div class="col-span-3 md:col-span-3 text-sm text-[#0a0a0a]/70">Oct 22, 2023</div>
+                            <div class="col-span-2 hidden md:block">
+                                <span
+                                    class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wide border border-orange-200">Processing</span>
+                            </div>
+                            <div class="col-span-4 md:col-span-3 text-right font-mono font-medium">- $2,000.00</div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 border-t border-[#0a0a0a]/5 text-center">
+                        <button class="text-sm font-bold text-[#0a0a0a] hover:text-[var(--accent-pop)] transition-colors">Load
+                            More</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARDS PAGE -->
+            <div id="view-cards" class="p-6 md:p-12 max-w-7xl mx-auto space-y-8 hidden fade-in">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-4xl md:text-5xl serif-font text-[#0a0a0a]">My Cards</h1>
+                    <button
+                        class="px-5 py-2.5 bg-[#0a0a0a] text-white text-sm font-medium rounded-full hover:bg-[var(--accent-pop)] hover:text-[#0a0a0a] transition-colors border border-[#0a0a0a] flex items-center gap-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i> New Card
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Left: Visual Card -->
+                    <div class="flex flex-col items-center gap-8">
+                        <!-- The Card -->
+                        <div
+                            class="relative w-full max-w-md aspect-[1.586/1] bg-[#0a0a0a] rounded-2xl p-8 text-white shadow-2xl overflow-hidden group cursor-pointer transform transition-transform hover:scale-[1.02]">
+                            <div
+                                class="absolute top-0 right-0 w-48 h-48 bg-[var(--accent-pop)] rounded-full blur-3xl opacity-20 -mr-10 -mt-10">
+                            </div>
+                            <div
+                                class="absolute bottom-0 left-0 w-48 h-48 bg-blue-500 rounded-full blur-3xl opacity-20 -ml-10 -mb-10">
+                            </div>
+
+                            <div class="flex justify-between items-start mb-8 relative z-10 h-full flex-col">
+                                <div class="w-full flex justify-between">
+                                    <span class="font-medium tracking-widest text-sm opacity-80">FundFlow</span>
+                                    <i data-lucide="wifi" class="w-6 h-6 opacity-80 rotate-90"></i>
+                                </div>
+
+                                <div class="w-full">
+                                    <div class="flex items-center gap-4 mb-6">
+                                        <div class="w-12 h-8 bg-white/20 rounded"></div>
+                                        <i data-lucide="nfc" class="w-6 h-6 opacity-50"></i>
+                                    </div>
+                                    <div
+                                        class="text-2xl font-mono tracking-widest opacity-90 shadow-black drop-shadow-md">
+                                        â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ 4289</div>
+                                    <div class="flex justify-between items-end mt-6">
+                                        <div>
+                                            <div class="text-[10px] uppercase opacity-60">Card Holder</div>
+                                            <div class="font-medium tracking-wide">JOHN DOE</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-[10px] uppercase opacity-60">Expires</div>
+                                            <div class="font-medium tracking-wide">12/28</div>
+                                        </div>
+                                        <div class="flex gap-1">
+                                            <div class="w-8 h-8 rounded-full bg-white/20"></div>
+                                            <div class="w-8 h-8 rounded-full bg-white/20 -ml-4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <button
+                                class="w-12 h-12 rounded-full border border-[#0a0a0a]/10 flex items-center justify-center hover:bg-[#0a0a0a] hover:text-white transition-colors"
+                                title="Freeze Card">
+                                <i data-lucide="snowflake" class="w-5 h-5"></i>
+                            </button>
+                            <button
+                                class="w-12 h-12 rounded-full border border-[#0a0a0a]/10 flex items-center justify-center hover:bg-[#0a0a0a] hover:text-white transition-colors"
+                                title="Settings">
+                                <i data-lucide="settings-2" class="w-5 h-5"></i>
+                            </button>
+                            <button
+                                class="px-6 h-12 rounded-full border border-[#0a0a0a]/10 flex items-center justify-center font-medium hover:bg-[#0a0a0a] hover:text-white transition-colors gap-2">
+                                <i data-lucide="eye" class="w-4 h-4"></i> Show Details
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Settings/Limits -->
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-2xl border border-[#0a0a0a]/10">
+                            <h3 class="font-bold text-lg mb-4">Spending Limits</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-[#0a0a0a]/60">Monthly Limit</span>
+                                        <span class="font-bold">$2,000 / $5,000</span>
+                                    </div>
+                                    <div class="w-full bg-[#F3F0EB] h-2 rounded-full overflow-hidden">
+                                        <div class="bg-[var(--accent-pop)] h-full w-[40%]"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-[#0a0a0a]/60">Per Transaction</span>
+                                        <span class="font-bold">$1,000</span>
+                                    </div>
+                                    <input type="range" class="w-full accent-[#0a0a0a]" value="40">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-[#0a0a0a]/10">
+                            <h3 class="font-bold text-lg mb-4">Security</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-[#F3F0EB] flex items-center justify-center">
+                                            <i data-lucide="globe" class="w-4 h-4"></i></div>
+                                        <span class="text-sm font-medium">Online Transactions</span>
+                                    </div>
+                                    <div
+                                        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="toggle" id="toggle1"
+                                            class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-[#0a0a0a]/20 appearance-none cursor-pointer checked:right-0 transition-all duration-300"
+                                            checked="">
+                                        <label for="toggle1"
+                                            class="toggle-label block overflow-hidden h-5 rounded-full bg-[#0a0a0a]/20 cursor-pointer transition-colors duration-300"></label>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-[#F3F0EB] flex items-center justify-center">
+                                            <i data-lucide="map-pin" class="w-4 h-4"></i></div>
+                                        <span class="text-sm font-medium">Location Security</span>
+                                    </div>
+                                    <div
+                                        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="toggle" id="toggle2"
+                                            class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-[#0a0a0a]/20 appearance-none cursor-pointer checked:right-0 transition-all duration-300">
+                                        <label for="toggle2"
+                                            class="toggle-label block overflow-hidden h-5 rounded-full bg-[#0a0a0a]/20 cursor-pointer transition-colors duration-300"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS PAGE -->
+            <div id="view-settings" class="p-6 md:p-12 max-w-4xl mx-auto space-y-8 hidden fade-in">
+                <h1 class="text-4xl md:text-5xl serif-font text-[#0a0a0a]">Account Settings</h1>
+
+                <div class="bg-white border border-[#0a0a0a]/10 rounded-2xl overflow-hidden">
+                    <div class="p-8 border-b border-[#0a0a0a]/10 flex flex-col md:flex-row items-center gap-6">
+                        <div class="relative">
+                            <div
+                                class="w-24 h-24 rounded-full bg-[var(--accent-pop)] text-[#0a0a0a] flex items-center justify-center text-3xl font-bold border-4 border-white shadow-lg">
+                                JD</div>
+                            <button
+                                class="absolute bottom-0 right-0 w-8 h-8 bg-[#0a0a0a] text-white rounded-full flex items-center justify-center hover:bg-[var(--accent-pop)] hover:text-[#0a0a0a] transition-colors"><i
+                                    data-lucide="camera" class="w-4 h-4"></i></button>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <h2 class="text-2xl font-bold">John Doe</h2>
+                            <p class="text-[#0a0a0a]/50 mb-2">john.doe@example.com</p>
+                            <span
+                                class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase tracking-wide border border-green-200 inline-flex items-center gap-1">
+                                <i data-lucide="shield-check" class="w-3 h-3"></i> KYC Verified
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-8 space-y-8">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-[#0a0a0a]/50">First
+                                    Name</label>
+                                <input type="text" value="John"
+                                    class="w-full p-3 bg-[var(--bg-color)] border border-[#0a0a0a]/10 rounded-lg focus:outline-none focus:border-[#0a0a0a]">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-[#0a0a0a]/50">Last
+                                    Name</label>
+                                <input type="text" value="Doe"
+                                    class="w-full p-3 bg-[var(--bg-color)] border border-[#0a0a0a]/10 rounded-lg focus:outline-none focus:border-[#0a0a0a]">
+                            </div>
+                            <div class="space-y-2 md:col-span-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-[#0a0a0a]/50">Email
+                                    Address</label>
+                                <input type="email" value="john.doe@example.com"
+                                    class="w-full p-3 bg-[var(--bg-color)] border border-[#0a0a0a]/10 rounded-lg focus:outline-none focus:border-[#0a0a0a]">
+                            </div>
+                        </div>
+
+                        <hr class="border-[#0a0a0a]/5">
+
+                        <div>
+                            <h3 class="font-bold text-lg mb-4">Security</h3>
+                            <div class="flex justify-between items-center py-4">
+                                <div>
+                                    <div class="font-medium">Two-Factor Authentication</div>
+                                    <div class="text-sm text-[#0a0a0a]/50">Secure your account with 2FA</div>
+                                </div>
+                                <div class="relative inline-block w-12 align-middle select-none">
+                                    <input type="checkbox" checked=""
+                                        class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-2 border-[#0a0a0a]/20 appearance-none cursor-pointer transition-all duration-300">
+                                    <label
+                                        class="toggle-label block overflow-hidden h-6 rounded-full bg-[var(--accent-pop)] cursor-pointer transition-colors duration-300"></label>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center py-4">
+                                <div>
+                                    <div class="font-medium">Password</div>
+                                    <div class="text-sm text-[#0a0a0a]/50">Last changed 3 months ago</div>
+                                </div>
+                                <button
+                                    class="text-sm font-bold border border-[#0a0a0a]/10 px-4 py-2 rounded-lg hover:bg-[#0a0a0a] hover:text-white transition-colors">Change</button>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-4 pt-4">
+                            <button class="px-6 py-3 text-[#0a0a0a]/60 font-medium hover:text-[#0a0a0a]">Cancel</button>
+                            <button
+                                class="px-6 py-3 bg-[#0a0a0a] text-white rounded-lg font-bold hover:bg-[var(--accent-pop)] hover:text-[#0a0a0a] transition-colors">Save
+                                Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            // Hide all views
+            const views = ['dashboard', 'wallet', 'transfers', 'history', 'cards', 'settings'];
+            views.forEach(view => {
+                document.getElementById('view-' + view).classList.add('hidden');
+                document.getElementById('nav-' + view).classList.remove('active', 'bg-white/5', 'text-white', 'border-r-3', 'border-[var(--accent-pop)]');
+                document.getElementById('nav-' + view).classList.add('text-white/70');
+                // Reset styling to default
+                document.getElementById('nav-' + view).style.borderRight = 'none';
+                document.getElementById('nav-' + view).style.backgroundColor = 'transparent';
+                document.getElementById('nav-' + view).style.color = 'rgba(255,255,255,0.7)';
+            });
+
+            // Show selected view
+            document.getElementById('view-' + tabId).classList.remove('hidden');
+
+            // Activate Nav
+            const activeNav = document.getElementById('nav-' + tabId);
+            activeNav.classList.remove('text-white/70');
+            activeNav.style.color = '#38E584';
+            activeNav.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            activeNav.style.borderRight = '3px solid #38E584';
+
+            // Close mobile menu if open
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
+                toggleMobileMenu();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        }
+    </script>
+</body>
+
+</html>
